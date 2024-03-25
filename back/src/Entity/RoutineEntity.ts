@@ -24,10 +24,10 @@ export class RoutineEntity {
   gif!: string;
 
   @Column()
-  part_id!: string;
+  id_part!: string;
 
   @ManyToOne(() => PartEntity, (part) => part.routines)
-  @JoinColumn({ name: "part_id" })
+  @JoinColumn({ name: "id_part" })
   part!: PartEntity;
 
   @OneToMany(() => StepEntity, (step) => step.routine, { cascade: true })
