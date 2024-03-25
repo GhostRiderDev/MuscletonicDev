@@ -18,10 +18,10 @@ export class StepEntity {
   @Column({ type: "int", nullable: false })
   order!: number;
 
-  @Column({ type: "varchar", nullable: false })
-  routine_id!: string;
+  @Column({ type: "uuid", nullable: false })
+  id_routine!: string;
 
-  @ManyToOne(() => RoutineEntity, (routine) => routine.steps)
-  @JoinColumn({ name: "routine_id" })
+  @ManyToOne(() => RoutineEntity, (routine) => routine.steps, { lazy: false })
+  @JoinColumn({ name: "id_routine" })
   routine!: RoutineEntity;
 }

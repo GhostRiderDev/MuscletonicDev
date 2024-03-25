@@ -13,10 +13,10 @@ import { Role } from "../Interface/IUser";
 
 @Entity({ name: "User" })
 export class UserEntity {
-  @PrimaryColumn({ type: "varchar", length: 20 })
+  @PrimaryColumn({ type: "varchar", length: 20, nullable: false, unique: true })
   dni!: string;
 
-  @Column({ type: "varchar", nullable: false, length: 100 })
+  @Column({ type: "varchar", nullable: false, length: 100, unique: true })
   email!: string;
 
   @Column({ type: "varchar", nullable: false, length: 100 })
@@ -36,6 +36,6 @@ export class UserEntity {
   routines!: RoutineEntity[];
 
   @OneToOne(() => CredentialEntity, { cascade: true })
-  @JoinColumn({ name: "credential_id" })
+  @JoinColumn({ name: "id_credential" })
   credential!: CredentialEntity;
 }

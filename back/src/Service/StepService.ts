@@ -8,18 +8,31 @@ export const findSteps = async (): Promise<StepDTO[]> => {
   return stepsDB;
 };
 
+export const findStepsByRoutine = async (
+  id_routine: string
+): Promise<StepDTO[]> => {
+  const stepsDB = await StepDAO.findBy({ id_routine });
+  return stepsDB;
+};
+
 export const findStep = async (id: string): Promise<StepDTO> => {
   const stepDB = await StepDAO.findOneBy({ id_step: id });
 
   if (!stepDB) {
     throw new ResourceNotFoundError("Step not found");
   }
+
   return stepDB;
 };
 
 export const addStep = async (step: StepDTO): Promise<StepDTO> => {
   const stepDB = await StepDAO.save(step);
   return stepDB;
+};
+
+export const addSteps = async (steps: StepDTO[]): Promise<StepDTO[]> => {
+  const stepsDB = await StepDAO.save(steps);
+  return stepsDB;
 };
 
 export const refreshStep = async (

@@ -28,3 +28,9 @@ export const addCredential = async (key: string): Promise<string> => {
   );
   return credentialSaved.id_credential;
 };
+
+export const removeCredential = async (id: UUID): Promise<void> => {
+  const credential = await CredentialDAO.findOneBy({ id_credential: id });
+  if (!credential) throw new Error("Credential not found");
+  await CredentialDAO.delete(id);
+};
