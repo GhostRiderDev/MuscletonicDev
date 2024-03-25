@@ -5,14 +5,17 @@ import {
   updateUser,
   deleteUser,
   register,
+  login,
 } from "../Controller/UserController";
+import { isAdmin, verifyToken } from "../Middleware/token";
 
 const userRouter = express.Router();
 
-userRouter.get("/", getUsers);
-userRouter.get("/:id", getUser);
-userRouter.post("/register", register);
-userRouter.put("/:id", updateUser);
-userRouter.delete("/:id", deleteUser);
+userRouter.get("/", isAdmin, getUsers);
+userRouter.get("/:id", isAdmin, getUser);
+userRouter.post("/auth/register", register);
+userRouter.post("/auth/login", login);
+userRouter.put("/:id", verifyToken, updateUser);
+userRouter.delete("/:id", verifyToken, deleteUser);
 
 export default userRouter;

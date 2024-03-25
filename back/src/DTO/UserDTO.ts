@@ -1,6 +1,7 @@
 import { Role } from "../Interface/IUser";
 
 interface UserDTO {
+  id_user?: string;
   dni: string;
   email: string;
   firstName: string;
