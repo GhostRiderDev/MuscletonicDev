@@ -22,7 +22,7 @@ export const addStep = async (step: StepDTO): Promise<StepDTO> => {
   return stepDB;
 };
 
-export const updateStep = async (
+export const refreshStep = async (
   id: string,
   step: StepDTO
 ): Promise<StepDTO> => {
@@ -34,7 +34,7 @@ export const updateStep = async (
   return stepUpdated;
 };
 
-export const deleteStep = async (id: string): Promise<void> => {
+export const removeStep = async (id: string): Promise<void> => {
   const stepDB = await StepDAO.findOneBy({ id_step: id });
   if (!stepDB) {
     throw new ResourceNotFoundError("Step not found");
