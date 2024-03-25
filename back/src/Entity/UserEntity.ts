@@ -9,6 +9,7 @@ import {
 } from "typeorm";
 import CredentialEntity from "./CredentialEntity";
 import { RoutineEntity } from "./RoutineEntity";
+import { Role } from "../Interface/IUser";
 
 @Entity({ name: "User" })
 export class UserEntity {
@@ -25,10 +26,10 @@ export class UserEntity {
   lastName!: string;
 
   @Column({ type: "varchar", nullable: true })
-  credential_id!: string;
+  id_credential!: string;
 
   @Column({ type: "enum", nullable: false, enum: ["admin", "user"] })
-  role!: string;
+  role!: Role;
 
   @ManyToMany(() => RoutineEntity, { lazy: true, cascade: false })
   @JoinTable()
