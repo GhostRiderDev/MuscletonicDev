@@ -13,10 +13,14 @@ import { StepDTO } from "../DTO/StepDTO";
 export const getRoutines = async (
   __req: Request,
   res: Response<{ routines: RoutineDTO[] }>,
-  __next: NextFunction
+  next: NextFunction
 ) => {
-  const routines: RoutineDTO[] = await findRoutines();
-  res.status(200).json({ routines: routines }).send();
+  try {
+    const routines: RoutineDTO[] = await findRoutines();
+    res.status(200).json({ routines: routines }).send();
+  } catch (err) {
+    next(err);
+  }
 };
 
 export const getRoutine = async (
@@ -39,18 +43,22 @@ export const getRoutine = async (
 export const createRoutine = async (
   req: Request,
   res: Response,
-  _next: NextFunction
+  next: NextFunction
 ): Promise<void> => {
-  const routine: RoutineDTO = req.body.routine;
-  const steps: StepDTO[] = routine.steps;
-  const routineDB = await addRoutine(routine);
+  try {
+    const routine: RoutineDTO = req.body.routine;
+    const steps: StepDTO[] = routine.steps;
+    const routineDB = await addRoutine(routine);
 
-  const stepsWithRoutineId = steps.map((step) => {
-    return { ...step, id_routine: routineDB.id_routine };
-  });
-  const stepsDB = await addSteps(stepsWithRoutineId as StepDTO[]);
-  routineDB.steps = stepsDB;
-  res.status(201).send(routineDB);
+    const stepsWithRoutineId = steps.map((step) => {
+      return { ...step, id_routine: routineDB.id_routine };
+    });
+    const stepsDB = await addSteps(stepsWithRoutineId as StepDTO[]);
+    routineDB.steps = stepsDB;
+    res.status(201).send(routineDB);
+  } catch (err) {
+    next(err);
+  }
 };
 
 export const updateRoutine = async (

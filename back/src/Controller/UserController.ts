@@ -15,10 +15,14 @@ import UserDTO from "../DTO/UserDTO";
 export const getUsers = async (
   _req: Request,
   res: Response<{ users: UserDTO[] }>,
-  _next: NextFunction
+  next: NextFunction
 ) => {
-  const usersDB = await findUsers();
-  res.status(200).json({ users: usersDB }).send();
+  try {
+    const usersDB = await findUsers();
+    res.status(200).json({ users: usersDB }).send();
+  } catch (err) {
+    next(err);
+  }
 };
 
 export const getUser = async (
@@ -38,16 +42,19 @@ export const getUser = async (
 export const register = async (
   req: Request,
   res: Response,
-  _next: NextFunction
+  next: NextFunction
 ) => {
-  const user: UserDTO = req.body.user;
-  const credentials: string = req.body.credentials;
-  const id_credential = await addCredential(credentials);
-  console.log(id_credential);
+  try {
+    const user: UserDTO = req.body.user;
+    const credentials: string = req.body.credentials;
+    const id_credential = await addCredential(credentials);
 
-  user.id_credential = id_credential;
-  const userDB = await addUser(user);
-  res.status(201).send(userDB);
+    user.id_credential = id_credential;
+    const userDB = await addUser(user);
+    res.status(201).send(userDB);
+  } catch (err) {
+    next(err);
+  }
 };
 
 export const updateUser = async (
@@ -87,9 +94,9 @@ export const login = async (
   next: NextFunction
 ) => {
   try {
-    const { username, password } = req.body;
-    const isValid = await isValidCredentials(username, password);
-    const data = await generateToken(username);
+    const { email, password } = req.body;
+    const isValid = await isValidCredentials(email, password);
+    const data = await generateToken(email);
     if (isValid) {
       res
         .status(200)
