@@ -1,9 +1,9 @@
 export interface StepDTO {
-  id_step: string;
+  id_step?: string;
 
   content: string;
 
   order: number;
 
-  routine_id: string;
+  id_routine?: string;
 }

@@ -23,14 +23,17 @@ export class RoutineEntity {
   @Column({ type: "varchar", nullable: false, length: 200 })
   gif!: string;
 
-  @Column()
-  id_part!: string;
+  @Column({ type: "int", nullable: false })
+  id_part!: number;
 
   @ManyToOne(() => PartEntity, (part) => part.routines)
   @JoinColumn({ name: "id_part" })
   part!: PartEntity;
 
-  @OneToMany(() => StepEntity, (step) => step.routine, { cascade: true })
+  @OneToMany(() => StepEntity, (step) => step.routine, {
+    cascade: true,
+    lazy: false,
+  })
   @JoinColumn({ name: "steps_id" })
   steps!: StepEntity[];
 }

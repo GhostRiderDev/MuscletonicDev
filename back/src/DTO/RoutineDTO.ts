@@ -1,7 +1,7 @@
-import { StepEntity } from "../Entity/StepEntity";
+import { StepDTO } from "./StepDTO";
 
 export interface RoutineDTO {
-  id_routine: string;
+  id_routine?: string;
 
   name: string;
 
@@ -9,7 +9,7 @@ export interface RoutineDTO {
 
   gif: string;
 
-  id_part: string;
+  id_part: number;
 
-  steps?: StepEntity[];
+  steps: StepDTO[];
 }

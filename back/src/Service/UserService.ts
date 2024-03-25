@@ -89,26 +89,6 @@ export const removeUser = async (id: UUID): Promise<void> => {
   await UserDAO.delete({ dni: id });
 };
 
-export const isValidCredentials = async (
-  email: string,
-  password: string
-): Promise<boolean> => {
-  const userFound = await UserDAO.findOneBy({
-    email,
-  });
-  if (!userFound) {
-    throw new ResourceNotFoundError("User not found");
-  }
-  const isValidCredential = await validateCredential(
-    userFound.id_credential as UUID,
-    password
-  );
-  if (userFound && isValidCredential) {
-    return true;
-  }
-  return false;
-};
-
 export const validLogin = async (
   dataLogin: TdataLogin
 ): Promise<string | void> => {
@@ -161,4 +141,24 @@ const convertUserToDTO = ({
     dni: dni,
   };
   return userDTO;
+};
+
+export const isValidCredentials = async (
+  email: string,
+  password: string
+): Promise<boolean> => {
+  const userFound = await UserDAO.findOneBy({
+    email,
+  });
+  if (!userFound) {
+    throw new ResourceNotFoundError("User not found");
+  }
+  const isValidCredential = await validateCredential(
+    userFound.id_credential as UUID,
+    password
+  );
+  if (userFound && isValidCredential) {
+    return true;
+  }
+  return false;
 };

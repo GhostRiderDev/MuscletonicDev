@@ -6,37 +6,54 @@ import {
   removeRoutine,
   refreshRoutine,
 } from "../Service/RoutineService";
+import { RoutineDTO } from "../DTO/RoutineDTO";
+import { addSteps } from "../Service/StepService";
+import { StepDTO } from "../DTO/StepDTO";
 
 export const getRoutines = async (
   __req: Request,
-  res: Response,
+  res: Response<{ routines: RoutineDTO[] }>,
   __next: NextFunction
 ) => {
-  const routinesDB = await findRoutines();
-  res.status(200).send(routinesDB);
+  const routines: RoutineDTO[] = await findRoutines();
+  res.status(200).json({ routines: routines }).send();
 };
 
-export const getRoutine = (req: Request, res: Response, next: NextFunction) => {
+export const getRoutine = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const { id } = req.params;
-    const routineDB = findRoutine(id);
+
+    const routineDB = await findRoutine(id);
+    console.log(routineDB, "ROUTINE POR ID");
+
     res.status(200).send(routineDB);
   } catch (err) {
     next(err);
   }
 };
 
-export const createRoutine = (
+export const createRoutine = async (
   req: Request,
   res: Response,
   _next: NextFunction
-) => {
-  const { routine } = req.body;
-  const routineDB = addRoutine(routine);
+): Promise<void> => {
+  const routine: RoutineDTO = req.body.routine;
+  const steps: StepDTO[] = routine.steps;
+  const routineDB = await addRoutine(routine);
+
+  const stepsWithRoutineId = steps.map((step) => {
+    return { ...step, id_routine: routineDB.id_routine };
+  });
+  const stepsDB = await addSteps(stepsWithRoutineId as StepDTO[]);
+  routineDB.steps = stepsDB;
   res.status(201).send(routineDB);
 };
 
-export const updateRoutine = (
+export const updateRoutine = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -44,7 +61,9 @@ export const updateRoutine = (
   try {
     const { id } = req.params;
     const { routine } = req.body;
-    const routineDB = refreshRoutine(id, routine);
+
+    const routineDB = await refreshRoutine(id, routine);
+
     res.status(200).send(routineDB);
   } catch (err) {
     next(err);
