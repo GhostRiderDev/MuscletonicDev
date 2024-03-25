@@ -21,7 +21,7 @@ export const addRoutine = async (routine: RoutineDTO): Promise<RoutineDTO> => {
   return routineDB;
 };
 
-export const updateRoutine = async (
+export const refreshRoutine = async (
   id: string,
   routine: RoutineDTO
 ): Promise<RoutineDTO> => {
@@ -33,7 +33,7 @@ export const updateRoutine = async (
   return routineUpdated;
 };
 
-export const deleteRoutine = async (id: string): Promise<void> => {
+export const removeRoutine = async (id: string): Promise<void> => {
   const routineDB = await RoutineDAO.findOneBy({ id_routine: id });
   if (!routineDB) {
     throw new ResourceNotFoundError("Routine not found");
