@@ -14,13 +14,13 @@ export class RoutineEntity {
   @PrimaryGeneratedColumn("uuid")
   id_routine!: string;
 
-  @Column({ type: "varchar", nullable: false, length: 50 })
+  @Column({ type: "varchar", nullable: false, length: 50, unique: true })
   name!: string;
 
   @Column({ type: "varchar", nullable: false, length: 50 })
   description!: string;
 
-  @Column({ type: "varchar", nullable: false, length: 200 })
+  @Column({ type: "varchar", nullable: false, length: 200, unique: true })
   gif!: string;
 
   @Column({ type: "int", nullable: false })

@@ -8,6 +8,8 @@ import ResourceNotFoundError from "../Error/ResourceNotFoundError";
 import { UserDAO } from "../DAO/DAOs";
 import jwt from "jsonwebtoken";
 import { SECRET } from "../Config/envs";
+import { RoutineDTO } from "../DTO/RoutineDTO";
+import { RoutineEntity } from "../Entity/RoutineEntity";
 
 export const findUsers = async (): Promise<UserDTO[]> => {
   const usersDB: UserEntity[] = await UserDAO.find();
@@ -79,6 +81,50 @@ export const refreshUser = async (
 
   const userDTO: UserDTO = convertUserToDTO(userUpdated as UserEntity);
   return userDTO;
+};
+
+export const saveFavoriteRoutineUser = async (
+  id_user: UUID,
+  routine: RoutineDTO
+): Promise<UserDTO> => {
+  const userDB = await UserDAO.findOneBy({ dni: id_user });
+  if (!userDB) {
+    throw new ResourceNotFoundError(`User not found with id: ${id_user}`);
+  }
+  if (!routine.id_routine) {
+    throw new ResourceNotFoundError(
+      `Routine not found with id: ${routine.id_routine}`
+    );
+  }
+  const routineEntity = new RoutineEntity();
+  routineEntity.id_routine = routine.id_routine;
+  routineEntity.name = routine.name;
+  routineEntity.description = routine.description;
+  routineEntity.gif = routine.gif;
+  routineEntity.id_part = routine.id_part;
+
+  userDB.routines.push(routineEntity);
+  await UserDAO.update({ dni: id_user }, userDB);
+  return userDB;
+};
+
+export const removeFavoriteRoutineUser = async (
+  id_user: UUID,
+  id_routine: UUID
+): Promise<UserDTO> => {
+  const userDB = await UserDAO.findOneBy({ dni: id_user });
+  if (!userDB) {
+    throw new ResourceNotFoundError(`User not found with id: ${id_user}`);
+  }
+  const routineIndex = userDB.routines.findIndex(
+    (routine) => routine.id_routine === id_routine
+  );
+  if (routineIndex === -1) {
+    throw new ResourceNotFoundError(`Routine not found with id: ${id_routine}`);
+  }
+  userDB.routines.splice(routineIndex, 1);
+  await UserDAO.update({ dni: id_user }, userDB);
+  return userDB;
 };
 
 export const removeUser = async (id: UUID): Promise<void> => {

@@ -32,7 +32,11 @@ export class UserEntity {
   role!: Role;
 
   @ManyToMany(() => RoutineEntity, { lazy: true, cascade: false })
-  @JoinTable()
+  @JoinTable({
+    name: "FavoriteRoutines",
+    joinColumn: { name: "dni" },
+    inverseJoinColumn: { name: "id_routine" },
+  })
   routines!: RoutineEntity[];
 
   @OneToOne(() => CredentialEntity, { cascade: true })
