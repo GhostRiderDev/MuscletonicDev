@@ -122,7 +122,7 @@ export const isMine = async (
 
     validateUUID(id);
 
-    if (user.id_user !== id) {
+    if (user.dni !== id) {
       return res.status(401).json({ error: "Unauthorized action" }).send();
     }
 

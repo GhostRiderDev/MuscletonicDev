@@ -7,39 +7,57 @@ const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  if (err.name === "ValidationError") {
-    res
-      .status(400)
-      .json({
-        message: err.message,
-      })
-      .send();
-    logger.err(err.name, err.message, err.stack as string);
-  } else if (err.name === "ResourceNotFoundError") {
-    res
-      .status(404)
-      .json({
-        message: err.message,
-      })
-      .send();
-    logger.err(err.name, err.message, err.stack as string);
-  } else if (err.name === "JsonWebTokenError") {
-    res.status(401).json({ error: "Invalid token" });
-  } else if (err.name === "TokenExpiredError") {
-    res.status(401).json({
-      error: "token expired",
-    });
-  } else if (err.name === "UnauthorizedError") {
-    res.status(401).json({ error: "Unauthorized access" });
-  } else if (err.name === "SyntaxError") {
-    res.status(401).json({ error: "Invalid token" });
-  } else if (err.name === "InvalidOperatioError") {
-    res.status(400).json({ error: err.message });
-  } else if (err.name === "JsonWebTokenError") {
-    res.status(401).json({ error: "Invalid token" });
-  } else {
-    res.status(500).json({ error: err.message });
-    next(err);
+  switch (err.name) {
+    case "ValidationError":
+      res
+        .status(400)
+        .json({
+          message: err.message,
+        })
+        .send();
+      logger.err(err.name, err.message, err.stack as string);
+      return;
+    case "ResourceNotFoundError":
+      res
+        .status(404)
+        .json({
+          message: err.message,
+        })
+        .send();
+      logger.err(err.name, err.message, err.stack as string);
+      return;
+    case "JsonWebTokenError":
+      res.status(401).json({ error: "Invalid token" });
+      return;
+    case "TokenExpiredError":
+      res.status(401).json({
+        error: "token expired",
+      });
+      return;
+    case "UnauthorizedError":
+      res.status(401).json({ error: "Unauthorized access" });
+      return;
+    case "SyntaxError":
+      res.status(401).json({ error: "Invalid token" });
+      return;
+    case "InvalidOperatioError":
+      res.status(400).json({ error: err.message });
+      return;
+    case "JsonWebTokenError":
+      res.status(401).json({ error: "Invalid token" });
+      return;
+    case "TokenExpiredError":
+      res.status(401).json({ error: "Token expired" });
+      return;
+    case "UnauthorizedError":
+      res.status(401).json({ error: "Unauthorized access" });
+      return;
+    case "TypeError":
+      res.status(400).json({ error: "Invalid entries" });
+      return;
+    default:
+      res.status(500).json({ error: err.message });
+      next(err);
   }
 };
 

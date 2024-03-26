@@ -2,15 +2,17 @@ import { NextFunction, Request, Response } from "express";
 import {
   findUsers,
   findUser,
-  addUser,
   removeUser,
   refreshUser,
-  isValidCredentials,
-  generateToken,
+  saveFavoriteRoutineUser,
+  removeFavoriteRoutineUser,
 } from "../Service/UserService";
-import { addCredential, removeCredential } from "../Service/CredentialService";
+import { removeCredential } from "../Service/CredentialService";
 import { UUID } from "crypto";
 import UserDTO from "../DTO/UserDTO";
+import { findRoutine } from "../Service/RoutineService";
+import { RoutineDTO } from "../DTO/RoutineDTO";
+import { validateUUID, validateUser } from "../Service/validations";
 
 export const getUsers = async (
   _req: Request,
@@ -32,26 +34,9 @@ export const getUser = async (
 ) => {
   try {
     const { id } = req.params;
+    validateUUID(id);
     const userDB = await findUser(id);
     res.status(200).json({ user: userDB }).send();
-  } catch (err) {
-    next(err);
-  }
-};
-
-export const register = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const user: UserDTO = req.body.user;
-    const credentials: string = req.body.credentials;
-    const id_credential = await addCredential(credentials);
-
-    user.id_credential = id_credential;
-    const userDB = await addUser(user);
-    res.status(201).send(userDB);
   } catch (err) {
     next(err);
   }
@@ -64,7 +49,9 @@ export const updateUser = async (
 ) => {
   try {
     const { id } = req.params;
+    validateUUID(id);
     const { user } = req.body;
+    validateUser(user);
     const userDB = await refreshUser(id as UUID, user);
     res.status(200).send(userDB);
   } catch (err) {
@@ -79,6 +66,7 @@ export const deleteUser = async (
 ) => {
   try {
     const { id } = req.params;
+    validateUUID(id);
     const userDB = await findUser(id as UUID);
     removeUser(id as UUID);
     removeCredential(userDB.id_credential as UUID);
@@ -87,25 +75,52 @@ export const deleteUser = async (
     next(err);
   }
 };
-
-export const login = async (
+export const addFavoriteRoutineUser = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const { email, password } = req.body;
-    const isValid = await isValidCredentials(email, password);
-    const data = await generateToken(email);
-    if (isValid) {
-      res
-        .status(200)
-        .json({ ...data })
-        .send();
-    } else {
-      res.status(204).json({ result: "UnAuthorized" }).send();
-    }
-  } catch (error) {
-    next(error);
+    const { id_routine } = req.params;
+    validateUUID(id_routine);
+    const { id_user } = req.body;
+    validateUUID(id_user);
+    const routineDB: RoutineDTO = await findRoutine(id_routine);
+    const user = await saveFavoriteRoutineUser(id_user, routineDB);
+    res.status(200).send(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const deleteFavoriteRoutineUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id_routine } = req.params;
+    validateUUID(id_routine);
+    const { id_user } = req.body;
+    validateUUID(id_user);
+    const user = await removeFavoriteRoutineUser(id_user, id_routine as UUID);
+    res.status(200).send(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getFavoriteRoutinesUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id_user } = req.params;
+    validateUUID(id_user);
+    const user: UserDTO = await findUser(id_user as UUID);
+    res.status(200).send(user.routines);
+  } catch (err) {
+    next(err);
   }
 };

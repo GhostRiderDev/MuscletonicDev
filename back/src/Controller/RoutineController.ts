@@ -9,6 +9,7 @@ import {
 import { RoutineDTO } from "../DTO/RoutineDTO";
 import { addSteps } from "../Service/StepService";
 import { StepDTO } from "../DTO/StepDTO";
+import { validateRoutine, validateUUID } from "../Service/validations";
 
 export const getRoutines = async (
   __req: Request,
@@ -30,10 +31,8 @@ export const getRoutine = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-
+    validateUUID(id);
     const routineDB = await findRoutine(id);
-    console.log(routineDB, "ROUTINE POR ID");
-
     res.status(200).send(routineDB);
   } catch (err) {
     next(err);
@@ -47,7 +46,11 @@ export const createRoutine = async (
 ): Promise<void> => {
   try {
     const routine: RoutineDTO = req.body.routine;
+
+    validateRoutine(routine);
+
     const steps: StepDTO[] = routine.steps;
+
     const routineDB = await addRoutine(routine);
 
     const stepsWithRoutineId = steps.map((step) => {
@@ -68,8 +71,9 @@ export const updateRoutine = async (
 ) => {
   try {
     const { id } = req.params;
+    validateUUID(id);
     const { routine } = req.body;
-
+    validateRoutine(routine);
     const routineDB = await refreshRoutine(id, routine);
 
     res.status(200).send(routineDB);
@@ -85,6 +89,7 @@ export const deleteRoutine = (
 ) => {
   try {
     const { id } = req.params;
+    validateUUID(id);
     removeRoutine(id);
     res.status(204).send();
   } catch (err) {
