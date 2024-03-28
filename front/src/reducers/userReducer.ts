@@ -3,6 +3,7 @@ import ITokenUser from "@/interfaces/ITokenUser";
 import { login } from "@/services/auth";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
+import { AxiosError } from "axios";
 import { jwtDecode } from "jwt-decode";
 
 export const userSlice = createSlice({
@@ -17,43 +18,37 @@ export const userSlice = createSlice({
 
 export const setLogedUser = createAsyncThunk(
   "user/setLogedUser",
-  async (credential: ICredential, { dispatch }) => {
+  async (credential: ICredential, { dispatch, rejectWithValue }) => {
     try {
-      const response = await login(credential);
-      console.log(response);
-
-      const { token } = response;
+      const result = await login(credential);
+      const { token } = result?.data;
       const decodedToken = jwtDecode(token);
       window.localStorage.setItem("token", token);
-      const {
-        birthdate,
-        first_name,
-        id_user,
-        last_name,
-        nDni,
-        phone,
-        profile_image,
-        role,
-      }: ITokenUser = decodedToken as ITokenUser;
-
+      const { firstName, dni, lastName, role }: ITokenUser =
+        decodedToken as ITokenUser;
       dispatch(
         setUser({
-          birthdate,
-          first_name,
-          id_user,
-          last_name,
-          nDni,
-          phone,
-          profile_image,
+          firstName,
+          lastName,
+          dni,
           role,
         })
       );
-      return response;
-    } catch (error) {
-      // Manejar el error si la autenticación falla
-      console.error("Error en el inicio de sesión:", error);
-      // Lanzar el error nuevamente para que pueda ser capturado por el código que despachó esta acción
-      throw error;
+      return {
+        firstName,
+        lastName,
+        dni,
+        role,
+      };
+    } catch (err: AxiosError | any) {
+      if (err instanceof AxiosError) {
+        if (!err.response) {
+          return rejectWithValue("Network error");
+        }
+        return rejectWithValue(err.response.data.message);
+      } else {
+        return rejectWithValue(err.message);
+      }
     }
   }
 );

@@ -6,6 +6,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Landing from "./views/Landing";
+import { Toaster } from "./components/ui/toaster";
 
 function App() {
   return (
@@ -19,8 +21,9 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/*" element={<h1>Landing</h1>} />
+        <Route path="/*" element={<Landing />} />
       </Routes>
+      <Toaster />
     </BrowserRouter>
   );
 }

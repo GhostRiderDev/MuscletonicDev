@@ -10,11 +10,9 @@ export const validateCredential = async (
   const credential = await CredentialDAO.findOneBy({
     id_credential: id,
   });
-
   if (!credential) {
     return false;
   }
-
   return bcrypt.compare(key, credential?.password_hash);
 };
 
