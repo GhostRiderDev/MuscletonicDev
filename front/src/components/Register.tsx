@@ -40,7 +40,7 @@ const Register = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
-  const [tab, setTab] = useState<"login" | "register">("login");
+  const [tab, setTab] = useState<"signin" | "signup">("signin");
 
   const handleRegisterSubmit = async (
     values: z.infer<typeof registerSchema>
@@ -59,7 +59,7 @@ const Register = () => {
     };
     register(userToRegister)
       .then(() => {
-        setTab("login");
+        setTab("signin");
         toast({
           variant: "default",
           title: "Register Success",
@@ -104,7 +104,6 @@ const Register = () => {
         navigate("/user");
       })
       .catch((error) => {
-        console.log("va mal");
         toast({
           variant: "destructive",
           title: error,
@@ -141,14 +140,94 @@ const Register = () => {
       <Card className="w-full flex flex-col mt-4 mx-auto justify-center  md:w-5/12 items-center">
         <Tabs defaultValue={tab} value={tab} className="w-full">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger onClick={() => setTab("login")} value="login">
-              Login
+            <TabsTrigger onClick={() => setTab("signin")} value="signin">
+              Sign in
             </TabsTrigger>
-            <TabsTrigger onClick={() => setTab("register")} value="register">
-              Register
+            <TabsTrigger onClick={() => setTab("signup")} value="signup">
+              Sign up
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="register">
+          <TabsContent
+            value="signin"
+            className="flex-col justify-between items-end min-h-[85vh]"
+          >
+            <CardHeader className="space-y-1">
+              <CardDescription>
+                Enter your information to create your account
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Form {...loginForm}>
+                <form
+                  method="post"
+                  onSubmit={loginForm.handleSubmit(handleLoginSubmit)}
+                  className="space-y-8 block mx-auto "
+                >
+                  <div className=" md:block mx-auto  w-4/5 ">
+                    <FormField
+                      control={loginForm.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem className="w-9/12 mx-auto">
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="maria@gmail.com"
+                              type="text"
+                              {...field}
+                              className="max-w-1/2"
+                            />
+                          </FormControl>
+                          <FormDescription>
+                            This is your personal email
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={loginForm.control}
+                      name="password"
+                      render={({ field }) => (
+                        <FormItem className="w-9/12 mx-auto">
+                          <FormLabel>Password</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="***********************"
+                              type="password"
+                              {...field}
+                              className="max-w-1/2"
+                            />
+                          </FormControl>
+                          <FormDescription>
+                            This is your private key.
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <Button className="w-1/2 mx-auto block" type="submit">
+                    Login
+                  </Button>
+                </form>
+              </Form>
+              <CardFooter className="flex flex-col">
+                <p className="mt-2 text-xs text-center text-gray-700">
+                  Don't have an account?
+                  <button
+                    className=" text-blue-600 hover:underline"
+                    onClick={() => {
+                      setTab("signup");
+                    }}
+                  >
+                    Sign up
+                  </button>
+                </p>
+              </CardFooter>
+            </CardContent>
+          </TabsContent>
+          <TabsContent value="signup">
             <CardHeader className="space-y-1">
               <CardDescription>
                 Enter your information to create your account
@@ -299,86 +378,6 @@ const Register = () => {
                   </Button>
                 </form>
               </Form>
-            </CardContent>
-          </TabsContent>
-          <TabsContent
-            value="login"
-            className="flex-col justify-between items-end min-h-[85vh]"
-          >
-            <CardHeader className="space-y-1">
-              <CardDescription>
-                Enter your information to create your account
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Form {...loginForm}>
-                <form
-                  method="post"
-                  onSubmit={loginForm.handleSubmit(handleLoginSubmit)}
-                  className="space-y-8 block mx-auto "
-                >
-                  <div className=" md:block mx-auto  w-4/5 ">
-                    <FormField
-                      control={loginForm.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem className="w-9/12 mx-auto">
-                          <FormLabel>Email</FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="maria@gmail.com"
-                              type="text"
-                              {...field}
-                              className="max-w-1/2"
-                            />
-                          </FormControl>
-                          <FormDescription>
-                            This is your personal email
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={loginForm.control}
-                      name="password"
-                      render={({ field }) => (
-                        <FormItem className="w-9/12 mx-auto">
-                          <FormLabel>Password</FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="***********************"
-                              type="password"
-                              {...field}
-                              className="max-w-1/2"
-                            />
-                          </FormControl>
-                          <FormDescription>
-                            This is your private key.
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <Button className="w-1/2 mx-auto block" type="submit">
-                    Login
-                  </Button>
-                </form>
-              </Form>
-              <CardFooter className="flex flex-col">
-                <p className="mt-2 text-xs text-center text-gray-700">
-                  Don't have an account?
-                  <button
-                    className=" text-blue-600 hover:underline"
-                    onClick={() => {
-                      setTab("register");
-                    }}
-                  >
-                    Sign up
-                  </button>
-                </p>
-              </CardFooter>
             </CardContent>
           </TabsContent>
         </Tabs>
