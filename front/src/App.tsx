@@ -1,7 +1,7 @@
 // import { useState } from "react";
 // import reactLogo from "./assets/react.svg";
 // import viteLogo from "/vite.svg";
-//! viteLogo va en la propiedad asi: src={viteLogo}
+//! viteLogo va en la propiedad asi: src={viteLogo} //
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
