@@ -21,3 +21,5 @@ jobs:
           body: Credit new contributors by updating AUTHORS
           branch: ${{ github.ref }}
           base: main
+          token: ${{ secrets.TOKEN_PR }
+          base: main
