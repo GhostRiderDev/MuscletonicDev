@@ -10,6 +10,7 @@ import jwt from "jsonwebtoken";
 import { SECRET } from "../Config/envs";
 import { RoutineDTO } from "../DTO/RoutineDTO";
 import { RoutineEntity } from "../Entity/RoutineEntity";
+import InvalidOperatioError from "../Error/InvalidOperationError";
 
 export const findUsers = async (): Promise<UserDTO[]> => {
   const usersDB: UserEntity[] = await UserDAO.find();
@@ -45,6 +46,10 @@ export const addUser = async ({
   role,
   dni,
 }: UserDTO): Promise<UserDTO> => {
+  const userFound = await UserDAO.findOneBy({ email });
+  if (userFound) {
+    throw new InvalidOperatioError(`User with email ${email} already exists`);
+  }
   const userFromEntity = new UserEntity();
 
   userFromEntity.email = email;
@@ -52,7 +57,7 @@ export const addUser = async ({
   userFromEntity.lastName = lastName;
   userFromEntity.firstName = firstName;
   userFromEntity.role = role;
-  userFromEntity.dni = dni as string;
+  userFromEntity.dni = dni;
 
   const userDB: UserEntity = await UserDAO.save(userFromEntity);
 
@@ -196,6 +201,7 @@ export const isValidCredentials = async (
   const userFound = await UserDAO.findOneBy({
     email,
   });
+
   if (!userFound) {
     throw new ResourceNotFoundError("User not found");
   }
@@ -203,6 +209,10 @@ export const isValidCredentials = async (
     userFound.id_credential as UUID,
     password
   );
+  if (!isValidCredential) {
+    throw new InvalidOperatioError("Invalid credentials");
+  }
+
   if (userFound && isValidCredential) {
     return true;
   }

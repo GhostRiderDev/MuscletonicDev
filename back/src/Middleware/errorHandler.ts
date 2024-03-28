@@ -31,29 +31,29 @@ const errorHandler = (
       return;
     case "TokenExpiredError":
       res.status(401).json({
-        error: "token expired",
+        message: "token expired",
       });
       return;
     case "UnauthorizedError":
-      res.status(401).json({ error: "Unauthorized access" });
+      res.status(401).json({ message: "Unauthorized access" });
       return;
     case "SyntaxError":
-      res.status(401).json({ error: "Invalid token" });
+      res.status(401).json({ message: "Invalid token" });
       return;
     case "InvalidOperatioError":
-      res.status(400).json({ error: err.message });
+      res.status(400).json({ message: err.message });
       return;
     case "JsonWebTokenError":
-      res.status(401).json({ error: "Invalid token" });
+      res.status(401).json({ message: "Invalid token" });
       return;
     case "TokenExpiredError":
-      res.status(401).json({ error: "Token expired" });
+      res.status(401).json({ message: "Token expired" });
       return;
     case "UnauthorizedError":
-      res.status(401).json({ error: "Unauthorized access" });
+      res.status(401).json({ message: "Unauthorized access" });
       return;
     case "TypeError":
-      res.status(400).json({ error: "Invalid entries" });
+      res.status(400).json({ message: "Invalid entries" });
       return;
     default:
       res.status(500).json({ error: err.message });

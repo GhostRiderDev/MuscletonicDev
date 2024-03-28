@@ -1,11 +1,7 @@
 interface ITokenUser {
-  birthdate: string;
-  first_name: string;
-  id_user: number;
-  last_name: string;
-  nDni: string;
-  phone: string;
-  profile_image: string;
+  firstName: string;
+  lastName: string;
+  dni: string;
   role: string;
 }
 

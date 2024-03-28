@@ -11,6 +11,7 @@ import {
   validatePassword,
   validateUser,
 } from "../Service/validations";
+import { Role } from "../Interface/IUser";
 
 export const register = async (
   req: Request,
@@ -21,6 +22,7 @@ export const register = async (
     const credentials: string = req.body.credentials;
     validatePassword(credentials);
     const user: UserDTO = req.body.user;
+    user.role = Role.USER;
     validateUser(user);
     const id_credential = await addCredential(credentials);
 
@@ -44,6 +46,7 @@ export const login = async (
     validateEmail(email);
 
     const isValid = await isValidCredentials(email, password);
+
     const data = await generateToken(email);
     if (isValid) {
       res.status(200).json({ ...data });

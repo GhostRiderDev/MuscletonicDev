@@ -10,7 +10,8 @@ export const validateUUID = (id: string): void => {
 };
 
 export const validatePassword = (credential: string): void => {
-  if (!validator.isStrongPassword(credential)) {
+  // validate it is string with joi libray
+  if (Joi.string().validate(credential).error) {
     throw new ValidationError("Credential invalid");
   }
 };
@@ -30,13 +31,11 @@ const userSchema = Joi.object({
   email: Joi.string().email().required(),
   firstName: Joi.string().alphanum().min(3).max(50).required(),
   lastName: Joi.string().alphanum().min(3).max(50).required(),
-  role: Joi.string().valid("client", "admin").required(),
+  role: Joi.string().valid("user", "admin").required(),
   id_credential: Joi.string().uuid().optional(),
 });
 
 export const validateUser = (userToValid: object) => {
-  console.log("pasa por aqui", userToValid);
-
   const { error } = userSchema.validate(userToValid);
   if (error) {
     console.log(error);

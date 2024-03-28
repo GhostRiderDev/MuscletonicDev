@@ -1,5 +1,5 @@
 interface ICredential {
-  username: string;
+  email: string;
   password: string;
 }
 
