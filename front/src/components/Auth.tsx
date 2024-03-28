@@ -35,7 +35,7 @@ import { setLogedUser } from "@/reducers/userReducer";
 import ICredential from "@/interfaces/ICredential";
 import { unwrapResult } from "@reduxjs/toolkit";
 
-const Register = () => {
+const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -393,4 +393,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Auth;
