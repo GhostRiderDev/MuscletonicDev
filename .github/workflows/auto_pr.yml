@@ -16,7 +16,7 @@ jobs:
           last_commit_title=$(git log -1 --pretty=format:%s)
           last_commit_body=$(git log -1 --pretty=format:%b)
           echo "::set-output name=title::$last_commit_title"
-          echo "::set-output name=body::$last_commit_body" 
+          echo "::set-output name=body::$last_commit_body"
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
