@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Register from "@/components/Register";
+import Auth from "@/components/Auth";
 
 function Landing() {
   return (
@@ -7,7 +7,7 @@ function Landing() {
       <Routes>
         <Route path="/" element={<h1> Hello</h1>} />
         <Route path="/home" element={<h1> Hello</h1>} />
-        <Route path="/auth/register" element={<Register />} />
+        <Route path="/auth" element={<Auth />} />
       </Routes>
     </div>
   );
