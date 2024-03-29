@@ -206,7 +206,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           )}
         />
       </div>
-      <Button className="w-1/2 block mx-auto" type="submit">
+      <Button
+        className="w-1/2 block mx-auto  bg-sky-600 hover:bg-sky-400"
+        type="submit"
+      >
         Sign up
       </Button>
     </form>

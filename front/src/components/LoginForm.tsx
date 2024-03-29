@@ -106,7 +106,10 @@ const LoginForm = ({ navigate }: { navigate: NavigateFunction }) => {
           </FormItem>
         )}
       />
-      <Button className="w-1/2 mx-auto block" type="submit">
+      <Button
+        className="w-1/2 mx-auto block bg-sky-600 hover:bg-sky-400"
+        type="submit"
+      >
         Login
       </Button>
     </form>
