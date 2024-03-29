@@ -51,10 +51,18 @@ const Auth = () => {
       <Card className="w-full flex flex-col mt-4 mx-auto justify-center  md:w-5/12 items-center">
         <Tabs defaultValue={tab} value={tab} className="w-full">
           <TabsList className="grid w-full grid-cols-2 top-0">
-            <TabsTrigger onClick={() => setTab("signin")} value="login">
+            <TabsTrigger
+              onClick={() => setTab("signin")}
+              value="login"
+              className={tab === "signin" ? "bg-sky-500 text-white" : ""}
+            >
               Login
             </TabsTrigger>
-            <TabsTrigger onClick={() => setTab("signup")} value="register">
+            <TabsTrigger
+              onClick={() => setTab("signup")}
+              value="register"
+              className={tab === "signup" ? "bg-sky-500 text-white" : ""}
+            >
               Register
             </TabsTrigger>
           </TabsList>
