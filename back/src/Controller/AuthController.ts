@@ -3,6 +3,7 @@ import UserDTO from "../DTO/UserDTO";
 import { addCredential } from "../Service/CredentialService";
 import {
   addUser,
+  findUsers,
   generateToken,
   isValidCredentials,
 } from "../Service/UserService";
@@ -27,7 +28,10 @@ export const register = async (
     const id_credential = await addCredential(credentials);
 
     user.id_credential = id_credential;
+    console.log("before: ", await findUsers());
     const userDB = await addUser(user);
+    console.log("after: ", await findUsers());
+
     res.status(201).send(userDB);
   } catch (err) {
     next(err);

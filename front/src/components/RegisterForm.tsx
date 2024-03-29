@@ -70,10 +70,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       })
       .catch((error) => {
         setIsLoading(false);
+        console.log(error);
+
         toast({
           variant: "destructive",
-          title: "Invalid User",
-          description: error.response.data.error,
+          title: error.response.data.message,
+          description: "",
           duration: 3000,
         });
       });

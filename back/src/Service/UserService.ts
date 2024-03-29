@@ -46,10 +46,16 @@ export const addUser = async ({
   role,
   dni,
 }: UserDTO): Promise<UserDTO> => {
-  const userFound = await UserDAO.findOneBy({ email });
-  if (userFound) {
+  const userFoundByEmail = await UserDAO.findOneBy({ email });
+  if (userFoundByEmail) {
     throw new InvalidOperatioError(`User with email ${email} already exists`);
   }
+
+  const userFoundByDni = await UserDAO.findOneBy({ dni });
+  if (userFoundByDni) {
+    throw new InvalidOperatioError(`User with dni ${dni} already exists`);
+  }
+
   const userFromEntity = new UserEntity();
 
   userFromEntity.email = email;
@@ -60,7 +66,6 @@ export const addUser = async ({
   userFromEntity.dni = dni;
 
   const userDB: UserEntity = await UserDAO.save(userFromEntity);
-
   const userDTO: UserDTO = convertUserToDTO(userDB);
   return userDTO;
 };
