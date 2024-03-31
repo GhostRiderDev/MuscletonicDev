@@ -1,10 +1,12 @@
 import RestBody from "@/assets/bodyParts/RestBody";
 import RestAbdominal from "@/assets/bodyParts/RestAbdominal";
 import { muscles } from "@/data/bodyParts";
+import { useNavigate } from "react-router";
 
 function Body() {
-  const handleClick = (idPart: number, name: string) => {
-    console.log(idPart, name);
+  const navidate = useNavigate();
+  const handleClick = (idPart: number, _name: string) => {
+    navidate(`/muscle/${idPart}/routines/`);
   };
   return (
     <svg
