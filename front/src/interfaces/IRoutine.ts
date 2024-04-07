@@ -9,6 +9,7 @@ export interface IRoutine {
       id_step: string;
       name: string;
       content: string;
+      order: number;
     }
   ];
 }
