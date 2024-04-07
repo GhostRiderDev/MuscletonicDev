@@ -29,6 +29,7 @@ const Auth = () => {
       email: "",
       password: "",
     },
+    mode: "onChange",
   });
 
   const registerForm = useForm<z.infer<typeof registerSchema>>({
@@ -41,6 +42,7 @@ const Auth = () => {
       lastName: "",
       dni: "",
     },
+    mode: "onChange",
   });
 
   return (
@@ -74,7 +76,11 @@ const Auth = () => {
             </CardHeader>
             <CardContent>
               <Form {...registerForm}>
-                <RegisterForm setTab={setTab} setIsLoading={setIsLoading} />
+                <RegisterForm
+                  setTab={setTab}
+                  setIsLoading={setIsLoading}
+                  registerForm={registerForm}
+                />
               </Form>
             </CardContent>
           </TabsContent>
@@ -89,7 +95,7 @@ const Auth = () => {
             </CardHeader>
             <CardContent>
               <Form {...loginForm}>
-                <LoginForm navigate={navigate} />
+                <LoginForm navigate={navigate} loginForm={loginForm} />
               </Form>
               <CardFooter className="flex flex-col">
                 <p className="mt-2 text-xs text-center text-gray-700">

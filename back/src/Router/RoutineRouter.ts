@@ -5,6 +5,7 @@ import {
   createRoutine,
   updateRoutine,
   deleteRoutine,
+  getAllRoutineMuscle,
 } from "../Controller/RoutineController";
 import { isAdmin, verifyToken } from "../Middleware/token";
 
@@ -15,5 +16,6 @@ routineRouter.get("/:id", verifyToken, getRoutine);
 routineRouter.post("/", isAdmin, createRoutine);
 routineRouter.put("/:id", isAdmin, updateRoutine);
 routineRouter.delete("/:id", isAdmin, deleteRoutine);
+routineRouter.get("/part/:id_muscle", verifyToken, getAllRoutineMuscle);
 
 export default routineRouter;
