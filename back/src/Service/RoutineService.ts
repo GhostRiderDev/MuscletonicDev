@@ -19,6 +19,22 @@ export const findRoutines = async (): Promise<RoutineDTO[]> => {
   return routinesWithSteps;
 };
 
+export const findAllRoutinesMuscle = async (id_muscle: number) => {
+  const routinesDB: RoutineEntity[] = await RoutineDAO.findBy({
+    id_part: id_muscle,
+  });
+  const routines: RoutineDTO[] = routinesDB.map((routine) =>
+    convertRoutineEntityToDTO(routine)
+  );
+  const routinesWithSteps = await Promise.all(
+    routines.map(async (routine) => {
+      const steps = await findStepsByRoutine(routine.id_routine as string);
+      return { ...routine, steps };
+    })
+  );
+  return routinesWithSteps;
+};
+
 export const findRoutine = async (id: string): Promise<RoutineDTO> => {
   const routineDB: RoutineEntity | null = await RoutineDAO.findOneBy({
     id_routine: id,

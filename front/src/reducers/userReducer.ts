@@ -23,10 +23,8 @@ export const setLogedUser = createAsyncThunk(
       const result = await login(credential);
       const { token } = result?.data;
       const decodedToken = jwtDecode(token);
-      // I want to save token in a cookie but I don't know how to do it, and I want to secured it
 
-      //window.localStorage.setItem("token", token);
-      document.cookie = `token=${token}; path=/; max-age=7200; samesite=strict; secure`;
+      window.localStorage.setItem("token", token);
 
       const { firstName, dni, lastName, role }: ITokenUser =
         decodedToken as ITokenUser;

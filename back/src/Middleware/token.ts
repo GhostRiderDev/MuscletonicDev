@@ -28,7 +28,7 @@ export const verifyToken = (
     if (typeof decodedToken === "string") {
       throw new ValidationError("Invalid token");
     }
-    if (!decodedToken.id_user) {
+    if (!decodedToken.dni) {
       throw new ValidationError("Invalid token");
     }
     return next();

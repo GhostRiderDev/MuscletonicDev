@@ -5,6 +5,7 @@ import {
   addRoutine,
   removeRoutine,
   refreshRoutine,
+  findAllRoutinesMuscle,
 } from "../Service/RoutineService";
 import { RoutineDTO } from "../DTO/RoutineDTO";
 import { addSteps } from "../Service/StepService";
@@ -19,6 +20,20 @@ export const getRoutines = async (
   try {
     const routines: RoutineDTO[] = await findRoutines();
     res.status(200).json({ routines: routines }).send();
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getAllRoutineMuscle = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id_muscle } = req.params;
+    const allRoutinesMuscle = await findAllRoutinesMuscle(+id_muscle);
+    res.status(200).json({ routines: allRoutinesMuscle }).send();
   } catch (err) {
     next(err);
   }

@@ -8,8 +8,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { UseFormReturn } from "react-hook-form";
 import loginSchema from "@/zod/loginSchema";
 import { useToast } from "@/components/ui/use-toast";
 import { useDispatch } from "react-redux";
@@ -20,17 +19,15 @@ import ICredential from "@/interfaces/ICredential";
 import z from "zod";
 import { NavigateFunction } from "react-router";
 
-const LoginForm = ({ navigate }: { navigate: NavigateFunction }) => {
+const LoginForm = ({
+  navigate,
+  loginForm,
+}: {
+  navigate: NavigateFunction;
+  loginForm: UseFormReturn<z.infer<typeof loginSchema>>;
+}) => {
   const { toast } = useToast();
   const dispatch: AppDispatch = useDispatch();
-
-  const loginForm = useForm<z.infer<typeof loginSchema>>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
 
   const handleLoginSubmit = async (values: z.infer<typeof loginSchema>) => {
     const { email, password } = values;
