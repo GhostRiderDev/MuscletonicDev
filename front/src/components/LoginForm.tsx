@@ -50,7 +50,6 @@ const LoginForm = ({
         navigate("/user");
       })
       .catch((error) => {
-        console.log("va mal");
         toast({
           variant: "destructive",
           title: error,

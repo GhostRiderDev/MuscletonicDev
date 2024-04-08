@@ -21,10 +21,10 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="container  gap-4 px-4 py-8 md:gap-6 md:px-6 lg:py-12 w-7/12 justify-center ">
+      <div className="container  gap-4 px-4 py-8 md:gap-6 md:px-6 lg:py-12 w-7/12 justify-center">
         <div className="space-y-4 lg:col-span-2 lg:space-y-8">
-          <div className="space-y-2 w-full flex flex-col items-center -mt-4">
-            <Body />
+          <div className="space-y-2 w-full flex flex-col items-center">
+            <Body setIdPart={null} />
           </div>
         </div>
       </div>

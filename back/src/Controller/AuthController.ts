@@ -62,3 +62,15 @@ export const login = async (
     next(error);
   }
 };
+
+export const validateToken = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.status(200).send();
+  } catch (error) {
+    next(error);
+  }
+}
