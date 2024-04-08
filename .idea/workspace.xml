@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2e6fe6a7-9f75-494d-90ec-eb8c83225b9a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Muscletonic.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Muscletonic.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/Controller/AuthController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/Controller/AuthController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/Middleware/errorHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/Middleware/errorHandler.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/Middleware/token.ts" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/Middleware/token.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/Router/AuthRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/Router/AuthRouter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/assets/bodyParts/RestAbdominal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/assets/bodyParts/RestAbdominal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/assets/bodyParts/RestBody.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/assets/bodyParts/RestBody.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/components/Body.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/Body.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/components/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/components/LoginForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/LoginForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/components/Muscle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/Muscle.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/services/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/services/auth.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2enhN143zmhAfubnXkdm0BSY5f5" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "36-create-muscles-model-and-rendering-with-info",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/cos4h/poli/Muscletonic",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "D:\\cos4h\\poli\\Muscletonic\\front\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2e6fe6a7-9f75-494d-90ec-eb8c83225b9a" name="Changes" comment="" />
+      <created>1712546214713</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1712546214713</updated>
+      <workItem from="1712546217103" duration="753000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

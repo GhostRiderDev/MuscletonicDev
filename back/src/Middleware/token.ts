@@ -8,6 +8,7 @@ import UserDTO from "../DTO/UserDTO";
 import { Role } from "../Interface/IUser";
 import ResourceNotFoundError from "../Error/ResourceNotFoundError";
 import errorHandler from "./errorHandler";
+
 export function decodeToken(token: string) {
   return jwt.verify(token, SECRET as string);
 }
@@ -22,7 +23,7 @@ export const verifyToken = (
     if (!token) {
       throw new ValidationError("Token cannot be empty");
     }
-
+    
     const decodedToken: JwtPayload | string = decodeToken(token);
 
     if (typeof decodedToken === "string") {
@@ -31,17 +32,21 @@ export const verifyToken = (
     if (!decodedToken.dni) {
       throw new ValidationError("Invalid token");
     }
+    
     return next();
   } catch (error) {
-    // Si es un error de validación, manejarlo usando errorHandler
+    // Si es un error de validación, manejarlo usando errorHandler    
     if (error instanceof ValidationError) {
       return errorHandler(error, req, res, next);
+    } else {
+      return res.status(401).json({ error: "Unauthorized access" }).send();
     }
   }
 };
 
 export const getTokenFrom = (req: Request) => {
-  const authorization = req.get("authorization");
+  const authorization = req.headers.authorization;
+  
 
   if (authorization && authorization.startsWith("Bearer ")) {
     return authorization.slice(7);

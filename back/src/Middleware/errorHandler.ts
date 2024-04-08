@@ -7,6 +7,7 @@ const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
+  
   switch (err.name) {
     case "ValidationError":
       res

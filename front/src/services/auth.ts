@@ -17,3 +17,9 @@ export const register = async (user: IUserRegister) => {
   const result = await axios.post(`${BASE_URL}/register`, user);
   return result;
 };
+
+export const validateToken = async (token: string) => {
+  const config = { headers: { authorization: `Bearer ${token}` } };
+  const result = await axios.post(`${BASE_URL}/valid/token`, {}, config);
+  return result;
+}

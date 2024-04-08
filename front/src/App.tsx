@@ -9,6 +9,7 @@ import "./App.css";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Landing from "./views/Landing";
 import { Toaster } from "./components/ui/toaster";
+import Dashboard from "./views/DashBoard";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           path="/user/*"
           element={
             <ProtectedRoute>
-              <h1>Hola</h1>
+              <Dashboard/>
             </ProtectedRoute>
           }
         />
